@@ -1,0 +1,234 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import { lab, areas, researchLines, team, projects, publications } from '../data/lab';
+
+const nav = [
+  { href: '#investigacion', label: 'Investigación' },
+  { href: '#proyectos', label: 'Proyectos' },
+  { href: '#equipo', label: 'Equipo' },
+  { href: '#publicaciones', label: 'Publicaciones' },
+  { href: '#contacto', label: 'Contacto' },
+];
+
+const memberCount = team.reduce((n, g) => n + g.people.length, 0);
+const stats = [
+  { value: researchLines.length, label: 'líneas de investigación' },
+  { value: memberCount, label: 'integrantes' },
+  { value: '30+', label: 'publicaciones desde 2021' },
+];
+---
+
+<Layout
+  title={`${lab.acronym} · ${lab.name} · FIUBA`}
+  description={`${lab.name} (${lab.acronym}), ${lab.department}, ${lab.faculty}.`}
+>
+  <!-- Navegación -->
+  <header class="sticky top-0 z-50 border-b border-white/10 bg-ink/90 backdrop-blur">
+    <nav class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <a href="#" class="flex items-center gap-2.5 font-display text-lg font-bold text-white">
+        <img src="/favicon.svg" alt="" class="h-8 w-8" />
+        {lab.acronym}
+        <span class="hidden text-sm font-medium text-slate-400 sm:inline">· FIUBA</span>
+      </a>
+      <div class="hidden items-center gap-7 md:flex">
+        {nav.map((item) => <a href={item.href} class="nav-link">{item.label}</a>)}
+      </div>
+      <details class="relative md:hidden">
+        <summary class="cursor-pointer list-none rounded-md p-2 text-slate-200 hover:bg-white/10" aria-label="Abrir menú">
+          <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16" /></svg>
+        </summary>
+        <div class="absolute right-0 mt-2 w-48 rounded-lg border border-white/10 bg-ink-2 p-2 shadow-xl">
+          {nav.map((item) => <a href={item.href} class="block rounded-md px-3 py-2 text-sm text-slate-200 hover:bg-white/10">{item.label}</a>)}
+        </div>
+      </details>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden bg-ink text-white">
+    <svg class="pointer-events-none absolute inset-0 h-full w-full opacity-40" aria-hidden="true">
+      <defs>
+        <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+          <path d="M48 0H0V48" fill="none" stroke="#ffffff" stroke-opacity="0.06" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#grid)" />
+    </svg>
+    <!-- Ondas de señal -->
+    <svg class="pointer-events-none absolute -right-40 top-1/2 h-[720px] w-[720px] -translate-y-1/2 text-signal opacity-30 sm:-right-24 lg:opacity-100" viewBox="0 0 400 400" fill="none" aria-hidden="true">
+      {[60, 110, 160, 210, 260].map((r, i) => (
+        <circle cx="200" cy="200" r={r} stroke="currentColor" stroke-opacity={0.5 - i * 0.09} stroke-width="1.2" />
+      ))}
+      <g fill="currentColor">
+        <circle cx="200" cy="200" r="6" />
+        <circle cx="290" cy="114" r="4" fill-opacity="0.8" />
+        <circle cx="96" cy="250" r="4" fill-opacity="0.8" />
+        <circle cx="240" cy="345" r="4" fill-opacity="0.6" />
+      </g>
+      <path d="M200 200 290 114M200 200 96 250M200 200l40 145" stroke="currentColor" stroke-opacity="0.45" stroke-dasharray="3 5" />
+    </svg>
+
+    <div class="relative mx-auto max-w-6xl px-4 pb-24 pt-20 sm:px-6 sm:pt-28 lg:px-8 lg:pb-32">
+      <p class="font-display text-sm font-semibold uppercase tracking-[0.2em] text-signal">
+        {lab.department} · FIUBA
+      </p>
+      <h1 class="mt-5 max-w-3xl font-display text-4xl font-bold leading-[1.08] tracking-tight sm:text-6xl">
+        {lab.name}
+      </h1>
+      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-slate-300">{lab.tagline}</p>
+      <div class="mt-10 flex flex-wrap gap-3">
+        <a href="#investigacion" class="rounded-lg bg-signal px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white">
+          Conocé nuestra investigación
+        </a>
+        <a href="#contacto" class="rounded-lg border border-white/25 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">
+          Contacto
+        </a>
+      </div>
+      <dl class="mt-16 grid max-w-2xl grid-cols-3 gap-6 border-t border-white/10 pt-8">
+        {stats.map((s) => (
+          <div>
+            <dt class="sr-only">{s.label}</dt>
+            <dd class="font-display text-3xl font-bold text-white sm:text-4xl">{s.value}</dd>
+            <dd class="mt-1 text-xs text-slate-400 sm:text-sm">{s.label}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <!-- Investigación -->
+  <section id="investigacion" class="section">
+    <p class="eyebrow">Investigación</p>
+    <h2 class="heading">Áreas temáticas</h2>
+    <p class="mt-4 max-w-2xl text-slate-600">
+      Trabajamos en la intersección de {areas.slice(0, -1).join(', ').toLowerCase()} y {areas.at(-1)?.toLowerCase()}, con
+      proyectos de investigación, tesis de grado y posgrado, y colaboraciones con otras universidades.
+    </p>
+    <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {researchLines.map((line) => (
+        <article class="group rounded-2xl border border-slate-200 bg-white p-6 transition hover:-translate-y-0.5 hover:border-signal hover:shadow-lg">
+          <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-ink text-signal">
+            <Icon name={line.icon} />
+          </div>
+          <h3 class="mt-5 font-display text-lg font-semibold text-ink">{line.title}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-slate-600">{line.description}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- Proyectos -->
+  <section id="proyectos" class="bg-paper">
+    <div class="section">
+      <p class="eyebrow">Proyectos</p>
+      <h2 class="heading">Proyectos de investigación</h2>
+      <ul class="mt-12 divide-y divide-slate-200 border-y border-slate-200">
+        {projects.map((p) => (
+          <li class="grid gap-2 py-6 md:grid-cols-[1fr_auto] md:gap-10">
+            <div>
+              <h3 class="font-display text-lg font-semibold text-ink">{p.title}</h3>
+              <p class="mt-1 text-sm text-slate-500">Dirección: {p.director}</p>
+            </div>
+            <div class="flex items-start gap-2 md:flex-col md:items-end">
+              <span class="rounded-full bg-ink px-3 py-1 text-xs font-medium text-white">{p.funding}</span>
+              <span class="text-sm tabular-nums text-slate-500">{p.period}</span>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Equipo -->
+  <section id="equipo" class="section">
+    <p class="eyebrow">Equipo</p>
+    <h2 class="heading">Integrantes</h2>
+    <div class="mt-12 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+      {team.map((group) => (
+        <div>
+          <h3 class="border-b border-slate-200 pb-2 text-xs font-semibold uppercase tracking-wider text-slate-500">{group.role}</h3>
+          <ul class="mt-4 space-y-3">
+            {group.people.map((person) => (
+              <li class="flex items-center gap-3">
+                <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-signal/15 font-display text-sm font-semibold text-signal-dark">
+                  {person.name.split(' ').filter((_, i, a) => i === 0 || i === a.length - 1).map((w) => w[0]).join('')}
+                </span>
+                <span>
+                  <span class="block font-medium text-ink">{person.name}</span>
+                  {person.title && <span class="block text-xs text-slate-500">{person.title}</span>}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Publicaciones -->
+  <section id="publicaciones" class="bg-paper">
+    <div class="section">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p class="eyebrow">Publicaciones</p>
+          <h2 class="heading">Publicaciones destacadas</h2>
+        </div>
+        <a href={`${lab.fiubaUrl}/publicaciones`} class="text-sm font-semibold text-signal-dark hover:text-ink" target="_blank" rel="noopener">
+          Ver lista completa →
+        </a>
+      </div>
+      <ol class="mt-12 grid gap-4 md:grid-cols-2">
+        {publications.map((pub) => (
+          <li class="rounded-xl border border-slate-200 bg-white p-5">
+            <div class="flex items-center gap-2 text-xs">
+              <span class="rounded bg-ink/5 px-2 py-0.5 font-medium text-ink">{pub.kind}</span>
+              <span class="tabular-nums text-slate-500">{pub.year}</span>
+            </div>
+            <h3 class="mt-3 font-medium leading-snug text-ink">{pub.title}</h3>
+            <p class="mt-2 text-sm text-slate-500">{pub.authors}</p>
+            <p class="mt-1 text-sm italic text-slate-500">{pub.venue}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Contacto -->
+  <section id="contacto" class="section">
+    <div class="grid gap-10 rounded-3xl bg-ink p-8 text-white sm:p-12 lg:grid-cols-2">
+      <div>
+        <p class="font-display text-sm font-semibold uppercase tracking-[0.18em] text-signal">Contacto</p>
+        <h2 class="mt-2 font-display text-3xl font-bold tracking-tight">¿Querés sumarte o colaborar?</h2>
+        <p class="mt-4 text-slate-300">
+          Recibimos estudiantes interesados en hacer su tesis, trabajo profesional o beca de investigación en
+          nuestras áreas. Escribinos y contanos qué te interesa.
+        </p>
+        <a href={`mailto:${lab.email}`} class="mt-8 inline-block rounded-lg bg-signal px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white">
+          {lab.email}
+        </a>
+      </div>
+      <dl class="grid content-start gap-6 text-sm">
+        <div>
+          <dt class="text-slate-400">Dirección</dt>
+          <dd class="mt-1 text-base">{lab.department}<br />{lab.address}<br />{lab.city}</dd>
+        </div>
+        <div>
+          <dt class="text-slate-400">Teléfono</dt>
+          <dd class="mt-1 text-base">{lab.phone}</dd>
+        </div>
+        <div>
+          <dt class="text-slate-400">Página institucional</dt>
+          <dd class="mt-1"><a href={lab.fiubaUrl} class="text-base text-signal underline-offset-4 hover:underline" target="_blank" rel="noopener">fi.uba.ar</a></dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <footer class="border-t border-slate-200">
+    <div class="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-8 text-sm text-slate-500 sm:flex-row sm:justify-between sm:px-6 lg:px-8">
+      <p>© {new Date().getFullYear()} {lab.acronym} · {lab.faculty}</p>
+      <p>Sitio en construcción</p>
+    </div>
+  </footer>
+</Layout>

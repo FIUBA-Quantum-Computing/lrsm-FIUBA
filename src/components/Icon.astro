@@ -1,0 +1,42 @@
+---
+interface Props {
+  name: 'network' | 'quantum' | 'shield' | 'iot' | 'chip';
+}
+const { name } = Astro.props;
+---
+
+<svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  {name === 'network' && (
+    <>
+      <circle cx="12" cy="5" r="2" /><circle cx="5" cy="19" r="2" /><circle cx="19" cy="19" r="2" />
+      <path d="M11 6.8 6 17.2M13 6.8l5 10.4M7 19h10" />
+    </>
+  )}
+  {name === 'quantum' && (
+    <>
+      <circle cx="12" cy="12" r="1.6" />
+      <ellipse cx="12" cy="12" rx="9" ry="3.6" />
+      <ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(60 12 12)" />
+      <ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(120 12 12)" />
+    </>
+  )}
+  {name === 'shield' && (
+    <>
+      <path d="M12 3 4.5 6v5.5c0 4.5 3.2 8.2 7.5 9.5 4.3-1.3 7.5-5 7.5-9.5V6L12 3Z" />
+      <path d="m9 12 2 2 4-4" />
+    </>
+  )}
+  {name === 'iot' && (
+    <>
+      <path d="M5 12.5a10 10 0 0 1 14 0M8 15.5a5.5 5.5 0 0 1 8 0" />
+      <circle cx="12" cy="19" r="1.2" />
+      <path d="M2 9.5a14.5 14.5 0 0 1 20 0" />
+    </>
+  )}
+  {name === 'chip' && (
+    <>
+      <rect x="6" y="6" width="12" height="12" rx="1.5" /><rect x="9.5" y="9.5" width="5" height="5" />
+      <path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4" />
+    </>
+  )}
+</svg>

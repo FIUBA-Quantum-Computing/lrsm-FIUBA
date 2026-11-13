@@ -41,4 +41,4 @@ Para actualizar el contenido, en general alcanza con editar `src/data/lab.ts`.
 - [ ] Fotos del equipo y del laboratorio
 - [ ] Correo institucional del laboratorio (hoy figura el del responsable)
 - [ ] Actualizar proyectos vigentes (los listados en FIUBA terminan en 2024–2025)
-- [ ] Deploy (Netlify o GitHub Pages)
+- [x] Deploy en GitHub Pages: https://fiuba-quantum-computing.github.io/lrsm-FIUBA/ (se publica solo con cada push a `main`)

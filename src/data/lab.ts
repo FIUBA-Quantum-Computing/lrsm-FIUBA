@@ -8,7 +8,7 @@ export const lab = {
   faculty: 'Facultad de Ingeniería, Universidad de Buenos Aires',
   // TODO: reemplazar por la descripción oficial del laboratorio.
   tagline:
-    'Investigamos redes de computadoras, sistemas distribuidos y la próxima generación de comunicaciones: desde IoT y ciudades inteligentes hasta redes cuánticas.',
+    'Investigamos redes, sistemas distribuidos y computación cuántica: desde IoT y satélites hasta el diseño de una QPU propia. Formamos estudiantes de grado, maestría y doctorado.',
   address: 'Av. Paseo Colón 850, 1er piso',
   city: 'C1063ACV, Ciudad Autónoma de Buenos Aires, Argentina',
   phone: '528-50733 / 50732',
@@ -33,7 +33,7 @@ export const researchLines: ResearchLine[] = [
     icon: 'quantum',
     title: 'Computación e información cuántica',
     description:
-      'Lógica, redes y comunicaciones cuánticas: redes complejas basadas en estados entrelazados y el impacto del paradigma cuántico en blockchain.',
+      'Hardware cuántico (diseño de una QPU propia), machine learning cuántico, optimización variacional y redes cuánticas: del qubit a la aplicación.',
   },
   {
     icon: 'shield',
@@ -51,7 +51,7 @@ export const researchLines: ResearchLine[] = [
     icon: 'chip',
     title: 'Sistemas digitales',
     description:
-      'Lógica reconfigurable (FPGA) para sistemas críticos y cargas útiles satelitales.',
+      'Lógica reconfigurable (FPGA) para sistemas críticos, control de QPUs y aceleración de simuladores cuánticos, y sistemas satelitales.',
   },
 ];
 
@@ -59,7 +59,7 @@ export type Person = { name: string; title?: string };
 export type Group = { role: string; people: Person[] };
 
 export const team: Group[] = [
-  { role: 'Responsable', people: [{ name: 'Leonidas Facundo Caram', title: 'Dr. Ing.' }] },
+  { role: 'Director', people: [{ name: 'Leonidas Facundo Caram', title: 'Dr. Ing.' }] },
   { role: 'Docente consulto', people: [{ name: 'Alberto Enrique Dams', title: 'Ing.' }] },
   {
     role: 'Docentes',
@@ -80,6 +80,18 @@ export const team: Group[] = [
     ],
   },
   {
+    role: 'Grupo de computación cuántica',
+    people: [
+      { name: 'Julián Melmer Stiefkens', title: 'Ing. Informático · Optimización cuántica' },
+      { name: 'Lucas Burdman', title: 'Ing. Electrónico · QML' },
+      { name: 'Martín Costantini', title: 'FPGAs' },
+      { name: 'Manuel Compoliete', title: 'Ayudante de cátedra' },
+      { name: 'Francisco Moya', title: 'Tesista · QPU' },
+      { name: 'Lautaro García Vitale', title: 'Tesista · QPU' },
+      { name: 'Leandro Tosi', title: 'Codirector externo (CONICET–Instituto Balseiro)' },
+    ],
+  },
+  {
     role: 'Posgrado',
     people: [
       { name: 'Micaela Paula Suriano', title: 'Doctoranda' },
@@ -94,7 +106,7 @@ export const team: Group[] = [
 
 export type Project = { title: string; funding: string; period: string; director: string };
 
-// Proyectos dirigidos por integrantes del laboratorio.
+// Proyectos financiados dirigidos por integrantes del laboratorio.
 export const projects: Project[] = [
   {
     title:
@@ -127,6 +139,13 @@ export type Publication = { authors: string; title: string; venue: string; year:
 
 // Selección destacada; la lista completa está en la página de FIUBA.
 export const publications: Publication[] = [
+  {
+    kind: 'Congreso',
+    authors: 'Melmer Stiefkens, J.',
+    title: 'VQ-MAR: A Variational Quantum–Classical Hybrid Framework for Managed Aquifer Recharge Site Selection',
+    venue: 'IEEE Quantum Week (QCE26), Toronto',
+    year: 2026,
+  },
   {
     kind: 'Libro',
     authors: 'Marrone, L.; Robles, M.; Barbieri, A.; Castro, N.',
@@ -185,3 +204,125 @@ export const publications: Publication[] = [
     year: 2021,
   },
 ];
+
+export type Featured = {
+  tag: string;
+  title: string;
+  subtitle?: string;
+  people: string;
+  summary: string;
+  points: string[];
+  accent: 'signal' | 'violet' | 'amber';
+};
+
+// Fuentes: presentación "De qubits a aplicaciones" (ago. 2026) y presentación PITFIUBA de ASTAR.
+export const featured: Featured[] = [
+  {
+    tag: 'Tesis de grado · Hardware cuántico',
+    title: 'Diseñando nuestra propia QPU',
+    people: 'Francisco Moya y Lautaro García Vitale · codirección de Leandro Tosi (Instituto Balseiro)',
+    summary:
+      'Diseño, simulación, fabricación y caracterización de 4 transmones superconductores organizados en dos pares, para comparar acoplamiento directo contra un coupler sintonizable (transmón + SQUID).',
+    points: [
+      'Litografía electrónica y evaporación de metales propias',
+      'Caracterización en criostato de dilución a ~10 mK',
+      'Primera QPU universitaria del país en desarrollo',
+    ],
+    accent: 'violet',
+  },
+  {
+    tag: 'Paper · IEEE QCE26',
+    title: 'VQ-MAR: optimización cuántico-clásica',
+    subtitle: 'A Variational Quantum–Classical Hybrid Framework for Managed Aquifer Recharge Site Selection',
+    people: 'Julián Melmer Stiefkens',
+    summary:
+      'Selección de sitios de recarga de acuíferos formulada como QUBO y resuelta con QAOA sobre datos hidrogeológicos reales, presentada en IEEE Quantum Week 2026 (Toronto).',
+    points: [
+      'QAOA con warm-start clásico: AR ≥ 0.99 a N=20',
+      'Validado en hardware real: IBM Kingston QPU',
+      'Pipeline con datos reales (SSURGO, NWIS, NLCD, NOAA, OSM)',
+    ],
+    accent: 'signal',
+  },
+  {
+    tag: 'Tesis de grado · QML',
+    title: 'Redes neuronales híbridas clásico-cuánticas',
+    people: 'Lucas Burdman',
+    summary:
+      'Circuitos cuánticos parametrizados integrados en arquitecturas de ML convencionales, aplicados al reconocimiento de emociones a partir de señales de audio.',
+    points: [
+      'El bloque cuántico agrega solo 6–12 parámetros',
+      'Desempeño comparable o superior al modelo clásico',
+      '98 % de accuracy verificado en hardware de IBM',
+    ],
+    accent: 'signal',
+  },
+  {
+    tag: 'Proyecto PITFIUBA · Satelital',
+    title: 'ASTAR',
+    subtitle: 'Nanosatélite de investigación',
+    people: 'Jefe de proyecto: Fernando Filippetti',
+    summary:
+      'Desarrollo de un CubeSat de 1 unidad apto para vuelo, para validación tecnológica e investigación con carga útil, maximizando el aporte de estudiantes y laboratorios de FIUBA.',
+    points: [
+      'Electrónica, informática, mecánica y química',
+      'Subsistemas propios: EPS, computadora de a bordo, radio, ADCS',
+      'Estación terrena VHF/UHF con radio definida por software',
+    ],
+    accent: 'amber',
+  },
+];
+
+export const quantic = {
+  title: 'Proyecto QUANTIC',
+  summary:
+    'Busca instalar en la UBA capacidades propias de diseño y fabricación de qubits, junto al Grupo de Circuitos Cuánticos del Instituto Balseiro (CONICET–CNEA).',
+  axes: ['Hardware cuántico', 'Redes cuánticas (repetidores, detectores de fotón único)', 'Quantum Machine Learning'],
+  stats: [
+    { value: '4–6', label: 'qubits: objetivo del procesador funcional' },
+    { value: '3', label: 'ejes de trabajo' },
+    { value: '3', label: 'años investigando cuántica en FIUBA' },
+  ],
+};
+
+export const openLines = [
+  {
+    title: 'Optimización adaptativa',
+    description: 'ADAPT-VQE / ADAPT-QAOA: ansätze a medida del problema para superar el muro de coherencia.',
+    contact: 'Julián',
+  },
+  {
+    title: 'FPGAs para computación cuántica',
+    description: 'Control de la QPU y aceleración de simuladores cuánticos.',
+    contact: 'Lucas · Martín',
+  },
+  {
+    title: 'Redes cuánticas',
+    description: 'Blockchain con criptografía post-cuántica y QKD, y el primer QRouter de FIUBA.',
+    contact: 'Facundo',
+  },
+  {
+    title: 'Satélites (ASTAR)',
+    description: 'EPS, computadora de a bordo, radio, control de actitud, estación terrena y software TT&C.',
+    contact: 'Fernando Filippetti',
+  },
+];
+
+export const community = [
+  { title: 'Qiskit Fall Fest 2025 · FIUBA', description: 'Un mes de charlas, talleres y hackathon con IBM Quantum en la UBA.' },
+  { title: 'OQI Hackathon 2026 · Puebla, México', description: 'Optimización cuántica de la liberación de agua en el embalse binacional Falcon.' },
+  { title: 'Hackathon LATAM · Montevideo', description: 'Decisiones en tiempo real para contención de incendios forestales.' },
+  { title: 'Cuantos 8 · NYUAD Quantum Hackathon', description: 'Escuela y Taller Argentino de Cuántica, y hackathon en Abu Dhabi.' },
+];
+
+export const course = {
+  name: 'Computación Cuántica',
+  url: 'https://computacion-cuantica-fiuba.netlify.app/',
+  summary:
+    'Materia de grado de FIUBA dictada por el laboratorio. No hace falta experiencia previa en cuántica, y es la vía más directa para sumarse a un proyecto de investigación.',
+  levels: [
+    { level: 'Grado', text: 'Teórica: Facundo Caram. Práctica: Lucas Burdman, Manuel Compoliete y Julián Melmer Stiefkens.' },
+    { level: 'Maestría', text: 'Vinculada a la Maestría en Ingeniería en Telecomunicaciones y a la Especialización en Sistemas Embebidos.' },
+    { level: 'Doctorado', text: 'Tesis doctoral en curso sobre redes de información cuánticas.' },
+  ],
+};

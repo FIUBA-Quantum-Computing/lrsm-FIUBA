@@ -1,12 +1,18 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Icon from '../components/Icon.astro';
-import { lab, areas, researchLines, team, projects, publications } from '../data/lab';
+import {
+  lab, areas, researchLines, team, projects, publications,
+  featured, quantic, openLines, community, course,
+} from '../data/lab';
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 
 const nav = [
   { href: '#investigacion', label: 'Investigación' },
   { href: '#proyectos', label: 'Proyectos' },
   { href: '#equipo', label: 'Equipo' },
+  { href: '#docencia', label: 'Docencia' },
   { href: '#publicaciones', label: 'Publicaciones' },
   { href: '#contacto', label: 'Contacto' },
 ];
@@ -15,8 +21,14 @@ const memberCount = team.reduce((n, g) => n + g.people.length, 0);
 const stats = [
   { value: researchLines.length, label: 'líneas de investigación' },
   { value: memberCount, label: 'integrantes' },
-  { value: '30+', label: 'publicaciones desde 2021' },
+  { value: '1ª', label: 'QPU universitaria del país, en desarrollo' },
 ];
+
+const accents = {
+  signal: 'bg-signal/15 text-signal-dark',
+  violet: 'bg-violet-100 text-violet-700',
+  amber: 'bg-amber-100 text-amber-800',
+};
 ---
 
 <Layout
@@ -27,7 +39,7 @@ const stats = [
   <header class="sticky top-0 z-50 border-b border-white/10 bg-ink/90 backdrop-blur">
     <nav class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
       <a href="#" class="flex items-center gap-2.5 font-display text-lg font-bold text-white">
-        <img src="/favicon.svg" alt="" class="h-8 w-8" />
+        <img src={`${base}favicon.svg`} alt="" class="h-8 w-8" />
         {lab.acronym}
         <span class="hidden text-sm font-medium text-slate-400 sm:inline">· FIUBA</span>
       </a>
@@ -122,8 +134,52 @@ const stats = [
   <section id="proyectos" class="bg-paper">
     <div class="section">
       <p class="eyebrow">Proyectos</p>
-      <h2 class="heading">Proyectos de investigación</h2>
-      <ul class="mt-12 divide-y divide-slate-200 border-y border-slate-200">
+      <h2 class="heading">De la teoría al hardware</h2>
+      <p class="mt-4 max-w-2xl text-slate-600">
+        Tesis, papers y desarrollos que muestran el rango del laboratorio: machine learning cuántico, optimización
+        validada en hardware real, una QPU propia y un nanosatélite.
+      </p>
+      <div class="mt-12 grid gap-5 lg:grid-cols-2">
+        {featured.map((f) => (
+          <article class="flex flex-col rounded-2xl border border-slate-200 bg-white p-7">
+            <span class={`self-start rounded-full px-3 py-1 text-xs font-semibold ${accents[f.accent]}`}>{f.tag}</span>
+            <h3 class="mt-4 font-display text-2xl font-bold text-ink">{f.title}</h3>
+            {f.subtitle && <p class="mt-1 text-sm italic text-slate-500">{f.subtitle}</p>}
+            <p class="mt-3 text-sm font-medium text-slate-700">{f.people}</p>
+            <p class="mt-3 leading-relaxed text-slate-600">{f.summary}</p>
+            <ul class="mt-5 space-y-2 border-t border-slate-100 pt-5 text-sm text-slate-600">
+              {f.points.map((pt) => (
+                <li class="flex gap-2.5">
+                  <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-signal"></span>{pt}
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+
+      <!-- QUANTIC -->
+      <div class="mt-8 grid gap-8 rounded-2xl bg-ink p-8 text-white sm:p-10 lg:grid-cols-[1.4fr_1fr]">
+        <div>
+          <p class="font-display text-sm font-semibold uppercase tracking-[0.18em] text-signal">Alianza con el Instituto Balseiro</p>
+          <h3 class="mt-2 font-display text-2xl font-bold">{quantic.title}</h3>
+          <p class="mt-3 leading-relaxed text-slate-300">{quantic.summary}</p>
+          <div class="mt-5 flex flex-wrap gap-2">
+            {quantic.axes.map((a) => <span class="rounded-full border border-white/20 px-3 py-1 text-xs text-slate-200">{a}</span>)}
+          </div>
+        </div>
+        <dl class="grid grid-cols-3 gap-4 self-center lg:grid-cols-1">
+          {quantic.stats.map((s) => (
+            <div class="border-l-2 border-signal pl-4">
+              <dd class="font-display text-3xl font-bold">{s.value}</dd>
+              <dt class="text-xs text-slate-400 sm:text-sm">{s.label}</dt>
+            </div>
+          ))}
+        </dl>
+      </div>
+
+      <h3 class="mt-20 font-display text-xl font-semibold text-ink">Proyectos financiados</h3>
+      <ul class="mt-6 divide-y divide-slate-200 border-y border-slate-200">
         {projects.map((p) => (
           <li class="grid gap-2 py-6 md:grid-cols-[1fr_auto] md:gap-10">
             <div>
@@ -161,6 +217,64 @@ const stats = [
               </li>
             ))}
           </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Docencia y líneas abiertas -->
+  <section id="docencia" class="bg-paper">
+    <div class="section">
+      <div class="grid gap-12 lg:grid-cols-2">
+        <div>
+          <p class="eyebrow">Docencia</p>
+          <h2 class="heading">{course.name}</h2>
+          <p class="mt-4 text-slate-600">{course.summary}</p>
+          <ul class="mt-8 space-y-5">
+            {course.levels.map((l) => (
+              <li class="grid grid-cols-[6.5rem_1fr] gap-4">
+                <span class="font-display text-sm font-semibold uppercase tracking-wider text-signal-dark">{l.level}</span>
+                <span class="text-sm text-slate-600">{l.text}</span>
+              </li>
+            ))}
+          </ul>
+          <a href={course.url} target="_blank" rel="noopener" class="mt-8 inline-block rounded-lg bg-ink px-5 py-3 text-sm font-semibold text-white transition hover:bg-ink-2">
+            Página de la materia →
+          </a>
+        </div>
+        <div>
+          <p class="eyebrow">Sumate</p>
+          <h2 class="heading">Líneas abiertas</h2>
+          <p class="mt-4 text-slate-600">Frentes con lugar para tesis, trabajos profesionales y becas. Elegí un tema y arrancamos.</p>
+          <ul class="mt-8 space-y-3">
+            {openLines.map((o) => (
+              <li class="rounded-xl border border-slate-200 bg-white p-5">
+                <div class="flex flex-wrap items-baseline justify-between gap-2">
+                  <h3 class="font-display font-semibold text-ink">{o.title}</h3>
+                  <span class="text-xs text-slate-500">Referente: {o.contact}</span>
+                </div>
+                <p class="mt-1.5 text-sm text-slate-600">{o.description}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comunidad -->
+  <section class="section">
+    <p class="eyebrow">Comunidad</p>
+    <h2 class="heading">IBM Quantum y la comunidad cuántica LatAm</h2>
+    <p class="mt-4 max-w-2xl text-slate-600">
+      Tenemos contacto directo con IBM Argentina y el representante de IBM Quantum en el país, y somos parte de una red
+      regional de laboratorios, hackathons y comunidades cuánticas.
+    </p>
+    <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {community.map((c) => (
+        <div class="rounded-xl border-t-2 border-signal bg-paper p-5">
+          <h3 class="font-display font-semibold text-ink">{c.title}</h3>
+          <p class="mt-2 text-sm text-slate-600">{c.description}</p>
         </div>
       ))}
     </div>

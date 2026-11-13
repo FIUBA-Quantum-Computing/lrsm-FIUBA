@@ -8,7 +8,7 @@ export const lab = {
   faculty: 'Facultad de Ingeniería, Universidad de Buenos Aires',
   // TODO: reemplazar por la descripción oficial del laboratorio.
   tagline:
-    'Investigamos redes, sistemas distribuidos y computación cuántica: desde IoT y satélites hasta el diseño de una QPU propia. Formamos estudiantes de grado, maestría y doctorado.',
+    'Investigamos redes, sistemas distribuidos y computación cuántica: desde IoT y redes cuánticas hasta el diseño de una QPU propia. Formamos estudiantes de grado, maestría y doctorado.',
   address: 'Av. Paseo Colón 850, 1er piso',
   city: 'C1063ACV, Ciudad Autónoma de Buenos Aires, Argentina',
   phone: '528-50733 / 50732',
@@ -51,7 +51,7 @@ export const researchLines: ResearchLine[] = [
     icon: 'chip',
     title: 'Sistemas digitales',
     description:
-      'Lógica reconfigurable (FPGA) para sistemas críticos, control de QPUs y aceleración de simuladores cuánticos, y sistemas satelitales.',
+      'Lógica reconfigurable (FPGA) para sistemas críticos, control de QPUs y aceleración de simuladores cuánticos.',
   },
 ];
 
@@ -212,10 +212,10 @@ export type Featured = {
   people: string;
   summary: string;
   points: string[];
-  accent: 'signal' | 'violet' | 'amber';
+  accent: 'signal' | 'violet';
 };
 
-// Fuentes: presentación "De qubits a aplicaciones" (ago. 2026) y presentación PITFIUBA de ASTAR.
+// Fuente: presentación "De qubits a aplicaciones" (ago. 2026).
 export const featured: Featured[] = [
   {
     tag: 'Tesis de grado · Hardware cuántico',
@@ -257,31 +257,52 @@ export const featured: Featured[] = [
     ],
     accent: 'signal',
   },
-  {
-    tag: 'Proyecto PITFIUBA · Satelital',
-    title: 'ASTAR',
-    subtitle: 'Nanosatélite de investigación',
-    people: 'Jefe de proyecto: Fernando Filippetti',
-    summary:
-      'Desarrollo de un CubeSat de 1 unidad apto para vuelo, para validación tecnológica e investigación con carga útil, maximizando el aporte de estudiantes y laboratorios de FIUBA.',
-    points: [
-      'Electrónica, informática, mecánica y química',
-      'Subsistemas propios: EPS, computadora de a bordo, radio, ADCS',
-      'Estación terrena VHF/UHF con radio definida por software',
-    ],
-    accent: 'amber',
-  },
 ];
 
+// Fuente: presentación del proyecto QUANTIC al programa PITFIUBA (ago. 2026).
 export const quantic = {
-  title: 'Proyecto QUANTIC',
+  title: 'QUANTIC',
+  fullName: 'QUANTum Ingeniería en Cómputo y Comunicaciones',
+  tag: 'Proyecto PITFIUBA',
+  leads: 'Dirección: Leonidas Facundo Caram · Codirección: Leandro Tosi (Instituto Balseiro)',
   summary:
-    'Busca instalar en la UBA capacidades propias de diseño y fabricación de qubits, junto al Grupo de Circuitos Cuánticos del Instituto Balseiro (CONICET–CNEA).',
-  axes: ['Hardware cuántico', 'Redes cuánticas (repetidores, detectores de fotón único)', 'Quantum Machine Learning'],
-  stats: [
-    { value: '4–6', label: 'qubits: objetivo del procesador funcional' },
-    { value: '3', label: 'ejes de trabajo' },
-    { value: '3', label: 'años investigando cuántica en FIUBA' },
+    'Un proyecto interdisciplinario para desarrollar y aplicar tecnologías cuánticas al procesamiento de información, e instalar en la UBA capacidades propias de diseño y fabricación de qubits superconductores.',
+  axes: [
+    {
+      title: 'Hardware cuántico',
+      area: 'Ing. Electrónica y ciencia de materiales',
+      goals: [
+        'Diseñar, fabricar y caracterizar un procesador cuántico funcional de 4 a 6 qubits (transmon / fluxonium)',
+        'Lectura de alta fidelidad, compuertas de uno y dos qubits y generación de entrelazamiento',
+      ],
+    },
+    {
+      title: 'Comunicaciones cuánticas',
+      area: 'Ing. en Telecomunicaciones',
+      goals: [
+        'Componentes para nodos de una red cuántica, hacia la Internet Cuántica',
+        'Prototipo de repetidor cuántico y detector de fotones únicos (KIDs de aluminio granular)',
+      ],
+    },
+    {
+      title: 'Quantum Machine Learning',
+      area: 'Ing. Informática',
+      goals: [
+        'Protocolos que integran capas cuánticas en redes neuronales clásicas',
+        'Modelos híbridos aplicados a problemas reales, como el procesamiento de voz',
+      ],
+    },
+  ],
+  roadmap: [
+    { months: '1–6', text: 'Diseño y simulación electromagnética del procesador: transmons, uniones Josephson y resonadores de lectura.' },
+    { months: '6–12', text: 'Procesos de fabricación en sala limpia y caracterización de un único transmón.' },
+    { months: '12–18', text: 'Electrónica rápida a temperatura ambiente (FPGAs) y cableado criogénico.' },
+    { months: '18–24', text: 'Chip final de 4–6 qubits: compuertas de dos qubits, entrelazamiento y algoritmos como Grover.' },
+  ],
+  partners: [
+    'Departamentos de Electrónica y de Computación, FIUBA',
+    'Grupo de Circuitos Cuánticos, Instituto Balseiro',
+    'Grupo de Teoría de la Materia Condensada, Centro Atómico Bariloche (CNEA)',
   ],
 };
 
@@ -300,11 +321,6 @@ export const openLines = [
     title: 'Redes cuánticas',
     description: 'Blockchain con criptografía post-cuántica y QKD, y el primer QRouter de FIUBA.',
     contact: 'Facundo',
-  },
-  {
-    title: 'Satélites (ASTAR)',
-    description: 'EPS, computadora de a bordo, radio, control de actitud, estación terrena y software TT&C.',
-    contact: 'Fernando Filippetti',
   },
 ];
 
